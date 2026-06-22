@@ -154,8 +154,6 @@ public final class Archive {
                 withSelection(selection) { selPtr, selLen in
                     var opts = NtuaExtractOptions(
                         dest: cdest,
-                        password: nil,
-                        encoding: nil,
                         wrapper: wrapper,
                         strict: strict,
                         preserve: preserve,
