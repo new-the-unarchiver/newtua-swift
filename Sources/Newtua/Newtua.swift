@@ -110,10 +110,16 @@ public final class CancellationToken: @unchecked Sendable {
 // MARK: - ExtractReport
 
 /// Result of an extraction.
-public struct ExtractReport: Sendable {
+public struct ExtractReport: Sendable, Equatable {
     public let extracted: UInt64
     public let failed: UInt64
     public let aborted: Bool
+
+    public init(extracted: UInt64, failed: UInt64, aborted: Bool) {
+        self.extracted = extracted
+        self.failed = failed
+        self.aborted = aborted
+    }
 }
 
 // MARK: - Version
