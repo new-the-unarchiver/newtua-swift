@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.0
 import Foundation
 import PackageDescription
 
@@ -12,6 +12,7 @@ let cargoTargetDebug = pkgDir
 
 let package = Package(
     name: "Newtua",
+    platforms: [.macOS(.v14)],
     products: [
         .library(name: "Newtua", targets: ["Newtua"])
     ],
@@ -21,9 +22,14 @@ let package = Package(
             name: "Newtua",
             dependencies: ["CNewtua"],
             linkerSettings: [
-                // The Rust static library + its native deps (see
-                // `cargo rustc -- --print native-static-libs`).
-                .unsafeFlags(["-L\(cargoTargetDebug)", "-lnewtua_ffi"]),
+                // Link the Rust *static* library by full path. Do NOT use
+                // `-L<dir> -lnewtua_ffi`: cargo also emits libnewtua_ffi.dylib in
+                // the same dir, and the linker prefers the .dylib over the .a —
+                // the binary then links dynamically and dyld fails to load it at
+                // runtime (wrong baked-in path + Team ID / hardened-runtime
+                // mismatch). Giving the .a path forces static linking. Native
+                // deps follow (see `cargo rustc -- --print native-static-libs`).
+                .unsafeFlags(["\(cargoTargetDebug)/libnewtua_ffi.a"]),
                 .linkedFramework("CoreFoundation"),
                 .linkedLibrary("c++"),
                 .linkedLibrary("pthread"),
