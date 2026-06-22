@@ -75,13 +75,29 @@ public struct Entry: Sendable {
 // MARK: - Progress
 
 /// A snapshot of extraction progress, delivered to the progress callback.
-public struct Progress: Sendable {
+public struct Progress: Sendable, Equatable {
     public let index: Int
     public let path: String?
     public let bytesWritten: UInt64
     public let entrySize: UInt64
     public let started: Bool
     public let finished: Bool
+
+    public init(
+        index: Int,
+        path: String?,
+        bytesWritten: UInt64,
+        entrySize: UInt64,
+        started: Bool,
+        finished: Bool
+    ) {
+        self.index = index
+        self.path = path
+        self.bytesWritten = bytesWritten
+        self.entrySize = entrySize
+        self.started = started
+        self.finished = finished
+    }
 
     fileprivate init(_ raw: NtuaProgress) {
         self.index = Int(raw.index)
