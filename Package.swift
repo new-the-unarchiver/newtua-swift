@@ -17,9 +17,18 @@ import PackageDescription
 // any extra `linkerSettings` here.
 let package = Package(
     name: "Newtua",
+    // The package floor is .v14 for SwiftPM tooling compatibility; the real
+    // floor (26.0) is set by the consuming Xcode target and matches what
+    // CNewtua.framework was built with. `swift build` here emits a benign
+    // version-skew warning that does not surface in the Xcode build.
     platforms: [.macOS(.v14)],
     products: [
-        .library(name: "Newtua", targets: ["Newtua"])
+        // Dynamic so Xcode shows the "Embed" dropdown for the consumer
+        // target and so a single .framework is embedded into the .app once,
+        // shared between the app and the Quick Look extension via @rpath.
+        // Static (the SwiftPM default) gets duplicated into every linker,
+        // which defeats the whole point of using an XCFramework here.
+        .library(name: "Newtua", type: .dynamic, targets: ["Newtua"])
     ],
     targets: [
         .binaryTarget(name: "CNewtua", path: "Newtua.xcframework"),
