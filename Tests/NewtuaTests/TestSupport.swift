@@ -2,19 +2,17 @@ import Foundation
 
 /// Shared test scaffolding: fixture locations and temp-dir helpers.
 enum TestSupport {
-    /// Repository root, derived from this file's location.
-    /// Layout: <repo>/bindings/swift/Tests/NewtuaTests/TestSupport.swift
-    static func repoRoot() -> URL {
-        var url = URL(fileURLWithPath: #filePath)
-        for _ in 0..<5 { url.deleteLastPathComponent() }
-        return url
-    }
-
-    /// Path to a committed engine fixture by name.
+    /// Path to a committed fixture by name.
+    ///
+    /// The fixtures travel with this package rather than being read out of the
+    /// engine's own test tree: the package is distributed on its own, and the
+    /// published `newtua-core` crate excludes its tests entirely.
     static func fixture(_ name: String) -> URL {
-        repoRoot()
-            .appendingPathComponent("crates/newtua-core/tests/fixtures")
-            .appendingPathComponent(name)
+        guard let url = Bundle.module.url(forResource: name, withExtension: nil, subdirectory: "Fixtures")
+        else {
+            fatalError("missing test fixture: \(name)")
+        }
+        return url
     }
 
     /// A fresh temporary directory the caller owns. Caller is responsible for

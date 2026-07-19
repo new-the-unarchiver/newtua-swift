@@ -1,4 +1,8 @@
 .build/
 .swiftpm/
 *.xcodeproj
-Newtua.xcframework
+.DS_Store
+
+# Built by tools/build-xcframework.sh; released as an asset, never committed.
+Newtua.xcframework/
+Newtua.xcframework.zip

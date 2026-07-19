@@ -1,0 +1,21 @@
+Newtua (Swift package) — Swift bindings for New The Unarchiver.
+Copyright (C) 2026 Aleksei Trankov and contributors.
+
+Licensed under the GNU Lesser General Public License, version 3 or (at your
+option) any later version. The full license text is in LICENSE (the GNU Lesser
+General Public License v3); it incorporates by reference the GNU General Public
+License v3, provided in GPL-3.0.txt. If you did not receive these, see
+<https://www.gnu.org/licenses/>.
+
+This package contains two things under that license: the Swift wrapper in
+Sources/Newtua, and — inside the XCFramework attached to each release — the
+compiled newtua-ffi library, and through it the newtua-core engine. The
+engine's legacy-format decoders are ported from XADMaster (© Dag Ågren and
+contributors, GNU LGPL), which is where the license comes from.
+
+The Lesser GPL is what makes this workable for applications: an app may link
+this package, embed the framework and remain under a license of its own
+choosing. What the LGPL asks in return is that users be able to replace the
+library itself — which dynamic linking, used here, already provides.
+
+SPDX-License-Identifier: LGPL-3.0-or-later

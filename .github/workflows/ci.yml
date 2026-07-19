@@ -1,0 +1,19 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Package.swift points its binary target at a release asset, so this run
+      # exercises exactly what a consumer downloads — the framework is fetched,
+      # not rebuilt. It follows that CI cannot pass before the first release
+      # exists; that is inherent to url+checksum binary targets.
+      - name: build
+        run: swift build
+      - name: test
+        run: swift test

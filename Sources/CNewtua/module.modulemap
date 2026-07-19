@@ -1,4 +1,0 @@
-module CNewtua {
-    header "newtua.h"
-    export *
-}
