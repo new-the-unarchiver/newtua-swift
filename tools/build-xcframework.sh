@@ -11,7 +11,7 @@
 #
 set -euo pipefail
 
-FFI_VERSION="${1:-0.1.0}"
+FFI_VERSION="${1:-0.1.1}"
 
 FRAMEWORK_NAME="CNewtua"
 FRAMEWORK_VERSION="A"

@@ -23,15 +23,15 @@ let package = Package(
         .library(name: "Newtua", type: .dynamic, targets: ["Newtua"])
     ],
     targets: [
-        // Built from newtua-ffi 0.1.0 by tools/build-xcframework.sh. The
+        // Built from newtua-ffi 0.1.1 by tools/build-xcframework.sh. The
         // checksum pins this exact archive: rebuilding produces a different
         // one, so the asset attached to the release must never be regenerated.
         // For local work on the wrapper, swap in:
         //   .binaryTarget(name: "CNewtua", path: "Newtua.xcframework")
         .binaryTarget(
             name: "CNewtua",
-            url: "https://github.com/new-the-unarchiver/newtua-swift/releases/download/v0.1.0/Newtua.xcframework.zip",
-            checksum: "791b2f12a12571b8030272e0b9540712bf6619eec552996d07fbb2fb6080bb19"
+            url: "https://github.com/new-the-unarchiver/newtua-swift/releases/download/v0.1.1/Newtua.xcframework.zip",
+            checksum: "627247800e0dfe17df02b5456fdfe634727a5b9a25ff5942a5073dd4a2ccb3b5"
         ),
         .target(name: "Newtua", dependencies: ["CNewtua"]),
         .testTarget(
